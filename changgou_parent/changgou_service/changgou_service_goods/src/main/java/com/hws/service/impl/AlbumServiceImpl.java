@@ -83,7 +83,7 @@ public class AlbumServiceImpl implements AlbumService {
     public Example createExample(Album album){
         Example example = new Example(Album.class);
         Example.Criteria criteria = example.createCriteria();
-        if (criteria != null){
+        if (album != null){
             //编号
             if (!StringUtils.isEmpty(String.valueOf(album.getId()))){
                 criteria.andEqualTo("id",album.getId());

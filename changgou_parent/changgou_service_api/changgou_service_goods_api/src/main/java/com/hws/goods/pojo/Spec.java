@@ -80,5 +80,24 @@ public class Spec implements Serializable{
 		this.templateId = templateId;
 	}
 
+	public Spec() {
+	}
 
+	public Spec(String name, String options, Integer seq, Integer templateId) {
+		this.name = name;
+		this.options = options;
+		this.seq = seq;
+		this.templateId = templateId;
+	}
+
+	@Override
+	public String toString() {
+		return "Spec{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", options='" + options + '\'' +
+				", seq=" + seq +
+				", templateId=" + templateId +
+				'}';
+	}
 }

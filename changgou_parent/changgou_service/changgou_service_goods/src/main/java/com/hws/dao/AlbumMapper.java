@@ -6,7 +6,7 @@ import tk.mybatis.mapper.common.Mapper;
 /**
  * ClassName:AlbumMapper
  * Package:com.hws.dao
- * Description:
+ * Description:相册管理
  *
  * @ date:2020/11/8 17:37
  * @ author:hws

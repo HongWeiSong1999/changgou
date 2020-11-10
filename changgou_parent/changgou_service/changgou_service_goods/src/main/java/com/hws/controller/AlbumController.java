@@ -36,11 +36,11 @@ public class AlbumController {
      * @return
      */
     @PostMapping("/findPage/{page}/{size}")
-    public Result<List<Album>> findPage(@RequestBody(required = false) Album album,
+    public Result<PageInfo> findPage(@RequestBody(required = false) Album album,
                                         @PathVariable(value = "page") Integer page,
                                         @PathVariable(value = "size") Integer size) {
         PageInfo<Album> pageInfo = albumService.findPage(album, page, size);
-        return new Result<List<Album>>(true,StatusCode.OK,MessageConstant.QUERY_ALBUM_SUCCESS,pageInfo);
+        return new Result(true,StatusCode.OK,MessageConstant.QUERY_ALBUM_SUCCESS,pageInfo);
     }
 
 
@@ -51,10 +51,10 @@ public class AlbumController {
      * @return
      */
     @GetMapping("/findPage/{page}/{size}")
-    public Result<List<Album>> findPage(@PathVariable(value = "page") Integer page,
+    public Result<PageInfo> findPage(@PathVariable(value = "page") Integer page,
                                         @PathVariable(value = "size") Integer size) {
         PageInfo<Album> pageInfo = albumService.findPage(page, size);
-        return new Result<List<Album>>(true, StatusCode.OK, MessageConstant.QUERY_ALBUM_SUCCESS,pageInfo);
+        return new Result(true, StatusCode.OK, MessageConstant.QUERY_ALBUM_SUCCESS,pageInfo);
     }
 
     /***
