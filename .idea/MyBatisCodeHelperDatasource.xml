@@ -76,6 +76,18 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="changgou_goods:tb_sku">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="Sku" />
+                  <option name="moduleName" value="code-template" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="changgou_goods:tb_spec">
               <value>
                 <TableGenerateConfig>

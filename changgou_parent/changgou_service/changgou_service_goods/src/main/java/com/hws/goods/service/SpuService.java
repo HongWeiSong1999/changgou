@@ -67,6 +67,11 @@ public interface SpuService {
     /**
      *将参数的信息保存到SKU和SPU的表中
      */
-    void save(Goods goods);
+    void saveGoods(Goods goods);
+
+    /**
+     * 根据SPU的id查询Goods的数据
+     */
+    Goods findGoodsById(Long id);
 
 }

@@ -1,4 +1,5 @@
 package com.hws.goods.controller;
+import com.hws.goods.pojo.Goods;
 import com.hws.goods.pojo.Spu;
 import com.hws.goods.service.SpuService;
 import com.github.pagehelper.PageInfo;
@@ -140,5 +141,29 @@ public class SpuController {
         //调用SpuService实现查询所有Spu
         List<Spu> list = spuService.findAll();
         return new Result<List<Spu>>(true, StatusCode.OK,"查询成功",list) ;
+    }
+
+    /***
+     * 添加Goods
+     * @param goods
+     * @return
+     */
+    @PostMapping("/save")
+    public Result save(@RequestBody Goods goods){
+        spuService.saveGoods(goods);
+        return new Result(true,StatusCode.OK,"保存成功");
+    }
+
+    /***
+     * 根据 Spu的ID查询Goods
+     * @param id
+     * @return
+     */
+    @ApiOperation(value = "根据Spu的ID查询Goods",notes = "根据Spu的ID查询Goods",tags = {"SpuController"})
+    @GetMapping("/goods/{id}")
+    public Result<Goods> findGoodsById(@PathVariable Long id){
+        //根据ID查询Goods(SPU+SKU)信息
+        Goods goods = spuService.findGoodsById(id);
+        return new Result<Goods>(true,StatusCode.OK,"查询成功",goods);
     }
 }

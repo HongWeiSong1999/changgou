@@ -2,10 +2,7 @@ package com.hws.goods.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.hws.goods.dao.BrandMapper;
-import com.hws.goods.dao.CategoryMapper;
-import com.hws.goods.dao.ParaMapper;
-import com.hws.goods.dao.SpuMapper;
+import com.hws.goods.dao.*;
 import com.hws.goods.pojo.*;
 import com.hws.goods.service.SpuService;
 import com.github.pagehelper.PageHelper;
@@ -32,14 +29,14 @@ public class SpuServiceImpl implements SpuService {
     @Autowired
     private SpuMapper spuMapper;
 
-    @Resource
-    private IdWorker idWorker;
-
     @Autowired
     private CategoryMapper categoryMapper;
 
     @Autowired
     private BrandMapper brandMapper;
+
+    @Autowired
+    private SkuMapper skuMapper;
 
 
     /**
@@ -247,12 +244,27 @@ public class SpuServiceImpl implements SpuService {
      * 保存商品信息
      */
     @Override
-    public void save(Goods goods) {
+    public void saveGoods(Goods goods) {
         //保存一个SPU
         Spu spu = goods.getSpu();
-        spu.setId(idWorker.nextId()); //主键用idWorker自增
-        spu.setIsMarketable("1"); //上架为1
-        spuMapper.insertSelective(spu);
+        IdWorker idWorker = new IdWorker();
+
+        //判断用户传值过来的id,如果id是空的话，就进行新增操作，如果id不是空的话，就进行修改操作
+        if (StringUtils.isEmpty(spu.getId()) || spu.getId() == null){
+            //为空，进行增加
+            spu.setId(idWorker.nextId()); //主键用idWorker自增
+            spu.setIsMarketable("1"); //上架为1
+            spuMapper.insertSelective(spu);
+        }else {
+            //否则的话，进行修改，先把之前的sku删除了，再新增上去
+            spuMapper.updateByPrimaryKeySelective(spu);
+            //删除之前的sku
+            List<Sku> originSkuList = skuMapper.listSkuBySpuId(spu.getId());
+            for (Sku sku : originSkuList) {
+                skuMapper.delete(sku);
+            }
+        }
+        //新增新的sku
         Category category = categoryMapper.selectByPrimaryKey(spu.getCategory3Id());
         Brand brand = brandMapper.selectByPrimaryKey(spu.getBrandId());
         //保存List类型的Goods
@@ -276,8 +288,24 @@ public class SpuServiceImpl implements SpuService {
             sku.setCategoryId(spu.getCategory3Id());
             sku.setCategoryName(category.getName());
             sku.setBrandName(brand.getName());
+            skuMapper.insertSelective(sku);
         }
+    }
 
+    /**
+     * 根据Spu的id查询Goods
+     */
+    @Override
+    public Goods findGoodsById(Long id) {
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+        //根据Sku里面的spuid去找对应的值
+        Sku sku = new Sku();
+        sku.setSpuId(id);
+        List<Sku> skuList = skuMapper.select(sku);
+        Goods goods = new Goods();
+        goods.setSpu(spu);
+        goods.setSkuList(skuList);
+        return goods;
     }
 
     /**
