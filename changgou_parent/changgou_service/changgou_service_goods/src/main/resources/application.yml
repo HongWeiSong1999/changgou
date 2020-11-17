@@ -22,4 +22,8 @@ feign:
 #  configuration:
 #    map-underscore-to-camel-case: true
 #  mapper-locations: classpath:mapper/*Mapper.xml
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #  type-aliases-package: com.hws.goods.pojo

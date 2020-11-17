@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hws.goods.dao.ParaMapper">
+  <resultMap id="BaseResultMap" type="com.hws.goods.pojo.Para">
+    <!--@Table tb_para-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="options" jdbcType="VARCHAR" property="options" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="template_id" jdbcType="INTEGER" property="templateId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, `options`, seq, template_id
+  </sql>
+
+  <!--根据分类id找模板id,再找参数集合-->
+  <select id="findByCategoryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+        tp.*
+    from tb_category tc,tb_para tp
+    where tc.template_id = tp.template_id
+    and  tc.id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

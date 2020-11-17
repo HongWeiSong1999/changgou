@@ -2,17 +2,19 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="changgou_service_goods_api" />
+        <module name="changgou_service_goods" />
         <module name="changgou_common" />
         <module name="changgou_service_file" />
         <module name="changgou_common_db" />
+        <module name="code-template" />
         <module name="changgou_eureka" />
         <module name="untitled" />
-        <module name="changgou_service_goods" />
+        <module name="changgou_service_goods_api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -27,7 +29,7 @@
       <module name="changgou_service_goods" target="1.8" />
       <module name="changgou_service_goods_api" target="1.8" />
       <module name="changgou_web" target="1.8" />
-      <module name="untitled" target="1.8" />
+      <module name="code-template" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -43,7 +45,6 @@
       <module name="changgou_service_goods" options="-parameters" />
       <module name="changgou_service_goods_api" options="-parameters" />
       <module name="changgou_web" options="-parameters" />
-      <module name="untitled" options="-parameters" />
     </option>
   </component>
 </project>

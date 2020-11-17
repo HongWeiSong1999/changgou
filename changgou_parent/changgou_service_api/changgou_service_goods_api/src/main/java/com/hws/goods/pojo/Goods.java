@@ -1,19 +1,20 @@
 package com.hws.goods.pojo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * 商品组合实体类
+ * ClassName:Goods
+ * Package:com.hws.goods.pojo
+ * Description:
+ *
+ * @ date:2020/11/17 10:40
+ * @ author:hws
  */
-@ApiModel(description = "商品信息")
 public class Goods implements Serializable {
-    //SPU
+
     private Spu spu;
-    //SKU集合
+
     private List<Sku> skuList;
 
     public Spu getSpu() {
@@ -30,5 +31,13 @@ public class Goods implements Serializable {
 
     public void setSkuList(List<Sku> skuList) {
         this.skuList = skuList;
+    }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "spu=" + spu +
+                ", skuList=" + skuList +
+                '}';
     }
 }

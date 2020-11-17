@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hws.goods.dao.TemplateMapper">
+  <resultMap id="BaseResultMap" type="com.hws.goods.pojo.Template">
+    <!--@Table tb_template-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="spec_num" jdbcType="INTEGER" property="specNum" />
+    <result column="para_num" jdbcType="INTEGER" property="paraNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, spec_num, para_num
+  </sql>
+
+  <select id="findByCategoryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+        tt.*
+    from tb_template tt,tb_category tc
+    where tt.id = tc.template_id
+    and  tc.id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

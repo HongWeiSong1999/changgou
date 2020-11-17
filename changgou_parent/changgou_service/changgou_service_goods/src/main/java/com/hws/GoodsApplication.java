@@ -15,7 +15,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  */
 @SpringBootApplication
 @EnableEurekaClient //开启Eureka客户端
-@MapperScan(basePackages = {"com.hws.dao"}) //@MapperScan是tk.mybatis.spring.annotation包下的
+@MapperScan(basePackages = {"com.hws.goods.dao"}) //@MapperScan是tk.mybatis.spring.annotation包下的
 public class GoodsApplication {
     public static void main(String[] args) {
         SpringApplication.run(GoodsApplication.class,args);
