@@ -74,4 +74,23 @@ public interface SpuService {
      */
     Goods findGoodsById(Long id);
 
+    /**
+     * 实现商品的审核
+     */
+    void audit(Long spuid);
+
+    /**
+     * 实现商品的下架
+     */
+    void pull(Long spuid);
+
+    /**
+     * 实现商品的上架  （没删除并且审核过才可以上架）
+     */
+    void push(Long spuid);
+
+    /**
+     * 实现商品的批量上架  （没删除并且审核过才可以上架）
+     */
+    void pushMany(Long[] ids);
 }

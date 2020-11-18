@@ -309,6 +309,75 @@ public class SpuServiceImpl implements SpuService {
     }
 
     /**
+     * 实现商品的审核
+     */
+    @Override
+    public void audit(Long spuid) {
+        //先获取到spu的值
+        Spu spu = spuMapper.selectByPrimaryKey(spuid);
+        if (spu == null||spu.getIsDelete().equalsIgnoreCase("1")){
+            throw new RuntimeException("该商品已经被删除");
+        }
+        //实现上架和改状态
+        spu.setStatus("1");
+        spu.setIsMarketable("1");
+        spuMapper.updateByPrimaryKeySelective(spu);
+    }
+
+    /**
+     * 实现商品的下架
+     */
+    @Override
+    public void pull(Long spuid) {
+        //先获取到spu的值
+        Spu spu = spuMapper.selectByPrimaryKey(spuid);
+        if (spu == null||spu.getIsDelete().equalsIgnoreCase("1")){
+            throw new RuntimeException("该商品已经被删除");
+        }
+        //实现下架
+        spu.setIsMarketable("0");
+        spuMapper.updateByPrimaryKeySelective(spu);
+    }
+
+    /**
+     * 实现商品的上架  （没删除并且审核过才可以上架）
+     */
+    @Override
+    public void push(Long spuid) {
+        //先获取到spu的值
+        Spu spu = spuMapper.selectByPrimaryKey(spuid);
+        if (spu == null||spu.getIsDelete().equalsIgnoreCase("1")){
+            throw new RuntimeException("该商品已经被删除");
+        }
+        if (!spu.getStatus().equalsIgnoreCase("1")){
+            throw new RuntimeException("商品还未经审核");
+        }
+        //实现上架
+        spu.setIsMarketable("1");
+        spuMapper.updateByPrimaryKeySelective(spu);
+    }
+
+    /**
+     * 实现商品的批量上架  （没删除并且审核过才可以上架）
+     */
+    @Override
+    public void pushMany(Long[] ids) {
+        for (Long id : ids) {
+            Spu spu = spuMapper.selectByPrimaryKey(id);
+            //保证是没有删除的商品
+            if (spu.getIsDelete().equalsIgnoreCase("1")){
+                throw new RuntimeException("该商品已经被删除");
+            }
+            //保证是审核过的
+            if (!spu.getStatus().equalsIgnoreCase("1")){
+                throw new RuntimeException("审核还没有通过");
+            }
+            spu.setIsMarketable("1");
+            spuMapper.updateByPrimaryKeySelective(spu);
+        }
+    }
+
+    /**
      * 日期转为yyyyMMddHHmmSS形式
      */
     public String parseDateToStr(Date date) {
